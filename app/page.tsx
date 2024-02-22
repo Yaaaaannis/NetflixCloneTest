@@ -34,14 +34,12 @@ const Homepage: React.FC = () => {
 
 
   useEffect(() => {
-    // Si l'utilisateur n'est pas connecté, redirigez-le vers la page de connexion
     if (!user) {
+      console.log("Redirige vers /pages/signin car user est null");
       router.push('/pages/signin');
     } else {
-
-      console.log('user', user);
+      console.log("Utilisateur connecté:", user);
     }
-
   }, [user, router]);
 
   // const isServer = typeof window === "undefined";
