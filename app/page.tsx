@@ -33,14 +33,12 @@ const Homepage: React.FC = () => {
   }
 
 
-  useEffect(() => {
-    if (!user) {
-      console.log("Redirige vers /pages/signin car user est null");
-      router.push('/pages/signin');
-    } else {
-      console.log("Utilisateur connecté:", user);
-    }
-  }, [user, router]);
+
+  if (!user) {
+    console.log("Redirige vers /pages/signin car user est null");
+    router.push('/pages/signin');
+  }
+
 
   // const isServer = typeof window === "undefined";
   // if (!isServer) {
