@@ -25,7 +25,7 @@ const MovieList: React.FC<MovieListProps> = ({ movies }) => {
 
 
     return (
-        <ScrollArea className="h-72 w-48 rounded-md border mt-64 text-white-500">
+        <ScrollArea className="h-72 w-48 rounded-md border mt-64 text-white-500 bg-slate-50">
             {movies.map((movie) => (
                 <div key={movie.id} onClick={() => handleMovieClick(movie)} style={{ cursor: 'pointer' }}>
                     {movie.title}

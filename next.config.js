@@ -1,5 +1,10 @@
 module.exports = {
     images: {
-        domains: ['lh3.googleusercontent.com', 'image.tmdb.org', 'images.ctfassets.net'],
+        remotePatterns: [
+            { hostname: 'lh3.googleusercontent.com' },
+            { hostname: 'image.tmdb.org' },
+            { hostname: 'images.ctfassets.net' },
+        ],
+
     },
 };

@@ -15,6 +15,7 @@ import { useAuth } from '@/hooks/useauth';
 
 
 
+
 interface MovieModalProps {
     movie: Movie;
 }
@@ -22,6 +23,7 @@ interface MovieModalProps {
 
 export const Modal = () => {
     const { isOpen, onClose, type, data } = useModal();
+    const { user } = useAuth();
     const { saveMovieToUserList } = useSaveMovie();
 
     if (!isOpen || type !== "filmModal" || !data.movie) return null;
@@ -30,8 +32,12 @@ export const Modal = () => {
     const movie: Movie = data.movie;
 
     const handleSaveMovie = async () => {
-
-        await saveMovieToUserList(movie);
+        if (user) {
+            await saveMovieToUserList(movie);
+            alert("Film ajouté à la watchlist !");
+        } else {
+            alert("Veuillez vous connecter pour ajouter des films à votre watchlist.");
+        }
     };
 
     return (

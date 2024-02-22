@@ -1,8 +1,8 @@
 'use client'
 
 
-import { redirect, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import Header from "@/components/header";
 import { Modal } from "@/components/modals/modal";
@@ -13,7 +13,6 @@ import { useModal } from "@/hooks/usemodal";
 
 import Image from 'next/image';
 import '@splidejs/react-splide/css';
-import { AutoScroll } from '@splidejs/splide-extension-auto-scroll';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 
 
@@ -34,10 +33,24 @@ const Homepage: React.FC = () => {
   }
 
 
+  useEffect(() => {
+    // Si l'utilisateur n'est pas connecté, redirigez-le vers la page de connexion
+    if (!user) {
+      router.push('/pages/signin');
+    } else {
 
-  if (!user) {
-    router.push('/pages/signin');
-  }
+      console.log('user', user);
+    }
+
+  }, [user, router]);
+
+  // const isServer = typeof window === "undefined";
+  // if (!isServer) {
+  //   window.location.href = '/pages/signin';
+  // }
+
+
+
 
 
 
