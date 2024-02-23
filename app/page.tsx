@@ -34,11 +34,17 @@ const Homepage: React.FC = () => {
 
 
 
-  if (!user) {
-    console.log("Redirige vers /pages/signin car user est null");
-    router.push('/pages/signin');
-  }
-
+  // if (!user) {
+  //   console.log("Redirige vers /pages/signin car user est null");
+  //   router.push('/pages/signin');
+  // }
+  useEffect(() => {
+    // Si l'utilisateur n'est pas connecté, redirigez-le vers la page de connexion
+    if (!user) {
+      console.log("Pas d'utilisateur connecté, redirection vers /pages/signin");
+      router.push('/pages/signin');
+    }
+  }, [user, router]);
 
   // const isServer = typeof window === "undefined";
   // if (!isServer) {
