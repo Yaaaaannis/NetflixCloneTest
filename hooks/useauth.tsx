@@ -3,6 +3,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { auth, googleAuthProvider } from '../lib/firebase';
+import router from 'next/router';
 import { signInWithPopup, onAuthStateChanged, signOut, User as FirebaseUser } from 'firebase/auth';
 
 // Définissez le type pour le contexte, incluant la fonction signInWithGoogle
@@ -10,6 +11,7 @@ interface AuthContextType {
   user: FirebaseUser | null;
   signInWithGoogle: () => Promise<void>;
   signOutUser: () => Promise<void>;
+  loading: boolean;
 }
 
 const AuthContext = createContext<AuthContextType>(null!);
@@ -23,14 +25,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
 
   const [user, setUser] = useState<FirebaseUser | null>(null);
+  const [loading, setLoading] = useState(true); // Initialiser loading à true
 
-  // useEffect(() => {
-  //   const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-  //     console.log("Auth state changed:", currentUser);
-  //     setUser(currentUser);
-  //   });
-  //   return () => unsubscribe();
-  // }, []);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setLoading(false); // Définir loading à false une fois l'état d'authentification résolu
+    });
+    return () => unsubscribe();
+  }, []);
 
   const signInWithGoogle = async () => {
     try {
@@ -52,7 +55,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
 
   return (
-    <AuthContext.Provider value={{ user, signInWithGoogle, signOutUser }}>
+    <AuthContext.Provider value={{ user, signInWithGoogle, signOutUser, loading }}>
       {children}
     </AuthContext.Provider>
   );

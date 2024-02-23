@@ -18,7 +18,7 @@ import { Splide, SplideSlide } from '@splidejs/react-splide';
 
 
 const Homepage: React.FC = () => {
-  const { user, signOutUser } = useAuth();
+  const { user, signOutUser, loading } = useAuth();
   const router = useRouter();
   const { categories } = useMovies();
 
@@ -39,12 +39,16 @@ const Homepage: React.FC = () => {
   //   router.push('/pages/signin');
   // }
   useEffect(() => {
-    // Si l'utilisateur n'est pas connecté, redirigez-le vers la page de connexion
-    if (!user) {
-      console.log("Pas d'utilisateur connecté, redirection vers /pages/signin");
-      router.push('/pages/signin');
+    if (!loading) { // Une fois le chargement terminé, vérifiez l'état de l'utilisateur
+      if (user) {
+        // Si un utilisateur est connecté, redirigez-le vers la page d'accueil
+        router.push('/');
+      } else {
+        // Si aucun utilisateur n'est connecté, redirigez vers la page de connexion
+        router.push('/pages/signin');
+      }
     }
-  }, [user, router]);
+  }, [user, loading, router]);
 
   // const isServer = typeof window === "undefined";
   // if (!isServer) {

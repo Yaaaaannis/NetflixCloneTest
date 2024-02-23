@@ -15,15 +15,21 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
 const LogIn = () => {
-    const { signInWithGoogle, user, signOutUser } = useAuth();
+    const { signInWithGoogle, user, signOutUser, loading } = useAuth();
     const router = useRouter();
 
-    useEffect(() => {
-        if (user) {
-            router.push('/'); // Spécifiez le chemin vers votre page d'accueil
-        }
-    }, [user, router]);
 
+    useEffect(() => {
+        if (!loading) { // Une fois le chargement terminé, vérifiez l'état de l'utilisateur
+            if (user) {
+                // Si un utilisateur est connecté, redirigez-le vers la page d'accueil
+                router.push('/');
+            } else {
+                // Si aucun utilisateur n'est connecté, redirigez vers la page de connexion
+                router.push('/pages/signin');
+            }
+        }
+    }, [user, loading, router]);
 
     return (
         <div className="bg-black min-h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('../img/netflix-collection.jpg')" }}>
