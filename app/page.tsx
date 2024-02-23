@@ -39,14 +39,8 @@ const Homepage: React.FC = () => {
   //   router.push('/pages/signin');
   // }
   useEffect(() => {
-    if (!loading) { // Une fois le chargement terminé, vérifiez l'état de l'utilisateur
-      if (user) {
-        // Si un utilisateur est connecté, redirigez-le vers la page d'accueil
-        router.push('/');
-      } else {
-        // Si aucun utilisateur n'est connecté, redirigez vers la page de connexion
-        router.push('/pages/signin');
-      }
+    if (!loading && !user) { // Ajouter une vérification pour loading
+      router.push('/pages/signin');
     }
   }, [user, loading, router]);
 

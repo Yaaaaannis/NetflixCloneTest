@@ -43,7 +43,9 @@ const FeaturedMovieComponent = () => {
                     </div>
                     <div>
                         <div className='mt-[15px] text-[20px] text-[#999] max-w-[70%]' >{featuredMovie.overview}</div>
-                        <div><p>{featuredMovie.genres}</p></div>
+                        <div>
+                            <p>{featuredMovie.genres}</p>
+                        </div>
                         <div className='featured--button'>
                             <AddToWatchlistButton movie={featuredMovie} />
 
