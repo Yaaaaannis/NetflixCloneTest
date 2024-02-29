@@ -46,12 +46,12 @@ const UserMoviesList: React.FC = () => {
     }, [user, loading, router]);
 
     return (
-        <div className='bg-[#141414]'>
+        <div className='bg-[#141414] min-h-screen'>
             <Header />
-            <div className="text-center my-8">
+            <div className="text-center my-8 bg-[#141414]" >
                 <h2 className="text-2xl font-bold">Mes films enregistrés</h2>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 p-4 ">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 p-4  ">
                 {movies.map((movie) => (
                     <div key={movie.id} className="flex flex-col items-center cursor-pointer">
                         <Image
@@ -62,12 +62,13 @@ const UserMoviesList: React.FC = () => {
                             className="rounded-lg shadow-lg"
                             onClick={() => openFilmModal(movie)}
                         />
-                        <h3 className="text-sm mt-2 text-white">{movie.title}</h3>
-
+                        <h3 className="text-sm mt-2 text-white ">{movie.title}</h3>
+                        <Modal />
                     </div>
                 ))}
+
             </div>
-            <Modal />
+
         </div>
     );
 };
