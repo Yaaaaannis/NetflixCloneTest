@@ -41,8 +41,8 @@ const FeaturedMovieComponent = () => {
                         <div className='mr-[15px] inline-block text-green-400'>{featuredMovie.vote_average.toFixed(2)}</div>
                         <div className='mr-[15px] inline-block text-[#FFFFFF] '>{featuredMovie.release_date}</div>
                     </div>
-                    <div className=''>
-                        <div className='text-xl text-gray-400 sm:max-w-[80%] '>{featuredMovie.overview}</div>
+                    <div className='flex items-start left-0'>
+                        <div className='text-xl text-gray-400 sm:max-w-[70%]  sm:max-h-[70%]   '>{featuredMovie.overview}</div>
 
 
 
