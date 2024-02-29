@@ -1,7 +1,7 @@
 
 import { create } from "zustand";
 
-export type ModalType = "filmModal" | "searchModal";
+export type ModalType = "filmModal" | "searchModal" | "watchlistModal";
 
 export interface ModalData {
     [key: string]: any;

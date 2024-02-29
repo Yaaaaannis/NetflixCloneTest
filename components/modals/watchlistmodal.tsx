@@ -13,40 +13,31 @@ import { Movie } from '@/hooks/usemovies';
 import { useSaveMovie } from '@/components/save-to-watchlist';
 import { useAuth } from '@/hooks/useauth';
 import { useToast } from "@/components/ui/use-toast"
+import { useUserMovies } from '@/hooks/useUserMovies';
+import RemoveFromWatchlistButton from '../remove-from-watchlist';
 
 
 
 
-
-export interface MovieModalProps {
+interface MovieModalProps {
     movie: Movie;
-    isOpen: boolean;
-    onClose: () => void;
-
 }
 
-const MovieModal: React.FC = () => {
-    const { isOpen, type, data, onClose } = useModal();
-    const { saveMovieToUserList } = useSaveMovie();
-    const { user } = useAuth();
-    const { toast } = useToast();
 
-    if (!isOpen || type !== "searchModal" || !data.movie) return null;
+export const WatchlistModal = () => {
+    const { isOpen, onClose, type, data } = useModal();
+    const { user } = useAuth();
+    const { saveMovieToUserList } = useSaveMovie();
+    const { toast } = useToast();
+    const { movies, refreshMovies } = useUserMovies();
+
+
+    if (!isOpen || type !== "watchlistModal" || !data.movie) return null;
+
+
     const movie: Movie = data.movie;
 
 
-
-
-    const handleSaveMovie = async () => {
-        if (user) {
-            await saveMovieToUserList(movie);
-            toast({
-                title: `${movie.title} ajouté a la Watchlist !`,
-            })
-        } else {
-            alert("Veuillez vous connecter pour ajouter des films à votre watchlist.");
-        }
-    };
 
     return (
         <Dialog open={isOpen} onOpenChange={() => onClose()} >
@@ -75,14 +66,8 @@ const MovieModal: React.FC = () => {
                         <p className='mt-2'>{movie.genres}</p>
                     </div>
                 </div>
-                <DialogFooter className="flex justify-center mt-4">
-                    <button
-                        onClick={handleSaveMovie}
-                        className='px-4 md:px-8 py-2 bg-red-500 hover:bg-red-700 text-white font-bold rounded'>Add to Watchlist</button>
-                </DialogFooter>
+
             </DialogContent>
         </Dialog>
     );
 };
-
-export default MovieModal;

@@ -11,6 +11,7 @@ import Header from '@/components/header';
 import { Movie } from '@/hooks/usemovies';
 import { useModal } from '@/hooks/usemodal';
 import { Modal } from '@/components/modals/modal';
+import { WatchlistModal } from '@/components/modals/watchlistmodal';
 
 
 const UserMoviesList: React.FC = () => {
@@ -26,7 +27,7 @@ const UserMoviesList: React.FC = () => {
 
 
     const openFilmModal = (movie: Movie) => {
-        onOpen("filmModal", { movie });
+        onOpen("watchlistModal", { movie });
     }
 
     const openModal = (movie: Movie) => {
@@ -63,7 +64,8 @@ const UserMoviesList: React.FC = () => {
                             onClick={() => openFilmModal(movie)}
                         />
                         <h3 className="text-sm mt-2 text-white ">{movie.title}</h3>
-                        <Modal />
+                        <RemoveFromWatchlistButton movieId={movie.id.toString()} onRemove={refreshMovies} movie={movie} />
+                        <WatchlistModal />
                     </div>
                 ))}
 
