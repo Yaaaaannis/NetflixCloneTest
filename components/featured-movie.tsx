@@ -41,12 +41,16 @@ const FeaturedMovieComponent = () => {
                         <div className='mr-[15px] inline-block text-green-400'>{featuredMovie.vote_average.toFixed(2)}</div>
                         <div className='mr-[15px] inline-block text-[#FFFFFF] '>{featuredMovie.release_date}</div>
                     </div>
-                    <div className='pb-10'>
-                        <div className='text-xl text-gray-400 max-w-[70%] max-h-[60%] lg:max-w-[60%] sm:overflow-hidden sm:text-ellipsis sm:whitespace-nowrap'>{featuredMovie.overview}
-                        </div>
+                    <div className=''>
+                        <div className='text-xl text-gray-400 sm:max-w-[80%] '>{featuredMovie.overview}</div>
+
+
 
                     </div>
-                    <AddToWatchlistButton movie={featuredMovie} />
+                    <div>
+                        <AddToWatchlistButton movie={featuredMovie} />
+                    </div>
+
                 </div>
             </div>
         </ section >
