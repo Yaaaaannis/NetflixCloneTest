@@ -5,6 +5,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { auth, googleAuthProvider } from '../lib/firebase';
 import router from 'next/router';
 import { signInWithPopup, onAuthStateChanged, signOut, User as FirebaseUser } from 'firebase/auth';
+import dynamic from 'next/dynamic'
 
 // Définissez le type pour le contexte, incluant la fonction signInWithGoogle
 interface AuthContextType {
@@ -55,7 +56,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
 
   return (
-    <AuthContext.Provider value={{ user, signInWithGoogle, signOutUser, loading }}>
+    <AuthContext.Provider value={{ user, signInWithGoogle, signOutUser, loading }} >
       {children}
     </AuthContext.Provider>
   );

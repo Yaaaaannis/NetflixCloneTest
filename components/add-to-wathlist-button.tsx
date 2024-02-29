@@ -3,14 +3,17 @@ import React from 'react';
 import { Movie } from '@/hooks/usemovies';
 import { useAuth } from '@/hooks/useauth';
 import { useSaveMovie } from './save-to-watchlist';
-
+import { useToast } from "@/components/ui/use-toast"
 interface AddToWatchlistButtonProps {
     movie: Movie;
 }
 
+
+
 const AddToWatchlistButton: React.FC<AddToWatchlistButtonProps> = ({ movie }) => {
     const { user } = useAuth();
     const { saveMovieToUserList } = useSaveMovie();
+    const { toast } = useToast();
 
     const handleAddToWatchlist = async () => {
         if (!user) {
@@ -19,7 +22,9 @@ const AddToWatchlistButton: React.FC<AddToWatchlistButtonProps> = ({ movie }) =>
         }
         try {
             await saveMovieToUserList(movie);
-            alert("Film ajouté à la watchlist avec succès !");
+            toast({
+                title: `${movie.title} ajouté a la Watchlist !`,
+            })
         } catch (error) {
             console.error("Erreur lors de l'ajout du film à la watchlist :", error);
             alert("Une erreur est survenue lors de l'ajout du film à la watchlist.");

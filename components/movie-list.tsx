@@ -25,16 +25,18 @@ const MovieList: React.FC<MovieListProps> = ({ movies }) => {
 
 
     return (
-        <ScrollArea className="h-72 w-48 rounded-md border mt-64 text-white-500 bg-slate-50">
-            {movies.map((movie) => (
-                <div key={movie.id} onClick={() => handleMovieClick(movie)} style={{ cursor: 'pointer' }}>
-                    {movie.title}
-                    <Separator className='my-2' />
-                </div>
+        <div className='pt-36 '>
+            <ScrollArea className="m-40  h-72 w-48 rounded-md border pt-22 mt-64 text-white-500 bg-slate-50">
+                {movies.map((movie) => (
+                    <div key={movie.id} onClick={() => handleMovieClick(movie)} style={{ cursor: 'pointer' }}>
+                        {movie.title}
+                        <Separator className='my-2' />
+                    </div>
 
 
-            ))}
-        </ScrollArea>
+                ))}
+            </ScrollArea>
+        </div>
     );
 };
 

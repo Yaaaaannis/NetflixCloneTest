@@ -68,7 +68,6 @@ const Homepage: React.FC = () => {
       <Header />
       <div>
         <FeaturedMovie />
-        <h1 className="text-3xl text-red-500 bg-black">Bonjour {user?.displayName} tu es bien connecté</h1>
       </div>
       <div className="bg-black pt-28">
         {categories.map((category) => (

@@ -18,7 +18,7 @@ import Link from 'next/link';
 
 const Header = () => {
 
-    const { user, signOutUser } = useAuth();
+    const { user, signOutUser, loading } = useAuth();
     const { searchMovies } = useMovies();
     const [showMovieList, setShowMovieList] = useState(true);
     const { isOpen, onOpen, onClose } = useModal();
@@ -26,62 +26,48 @@ const Header = () => {
     const router = useRouter();
 
 
-    useEffect(() => {
-        if (typeof window !== "undefined") {
-            console.log(window.location.href); // Accès sécurisé à location
-        }
-    }, []);
+
+
     return (
-        <header className="  top-0 left-0 right-0  h-[80px] flex justify-between items-center px-0 py-[30px] bg-[#141414a6] transition-all ease-0.5 qsd z-50 fixed ">
-            <div className=" w-32 ">
-                <Link href="/">
+        <header className="top-0 left-0 right-0 h-[80px] flex items-center justify-between px-4 bg-[#141414] z-50 fixed md:px-6 lg:px-8">
+            <div className="flex items-center">
+                <a href="/">
                     <Image
-                        src="https://images.ctfassets.net/4cd45et68cgf/7LrExJ6PAj6MSIPkDyCO86/542b1dfabbf3959908f69be546879952/Netflix-Brand-Logo.png?w=684&h=456"
+                        src="https://images.ctfassets.net/4cd45et68cgf/7LrExJ6PAj6MSIPkDyCO86/542b1dfabbf3959908f69be546879952/Netflix-Brand-Logo.png"
                         alt="logo"
-                        width={684}
-                        height={456}
+                        width={100}
+                        height={30}
+                        layout="intrinsic"
                     />
-                </Link>
+                </a>
             </div>
-            <div className="h-[100%] flex items-center gap-[20px]">
+            <div className="flex items-center gap-2 md:gap-4">
                 <SearchMoviesComponent />
-                <div>
-                    {/* <SearchBar onSearch={handleMovieSelect} /> */}
-                </div>
-                <div>
-                    <MovieModal />
-                </div>
+                <MovieModal />
+                <div >
 
+                    <Image
+                        className="rounded-full"
+                        src={user?.photoURL || '/img/netflix-avatar.png'}
+                        alt="profil"
+                        width={40}
+                        height={40}
+                        layout='fixed'
+                    />
 
-                <div className="p-10">
-                    <Link href="/">
-                        <Image
-                            className="rounded-full h-14"
-                            src={user?.photoURL || '/img/netflix-avatar.png'}
-                            alt="profil"
-                            width={50}
-                            height={50}
-                        />
-                    </Link>
                 </div>
-                <div className='header-watchlist'>
-                    <button
-                        onClick={() => router.push('/pages/watchlist')}
-                        className='bg-white rounded-full bold uppercase text-xl m-5 p-3'>
-                        Watchlist
-                    </button>
-                </div>
-                <div>
-                    <button
-                        onClick={signOutUser}
-                        className='bg-white rounded-full bold uppercase text-xl m-5 p-3'>
-                        Deconnexion
-
-                    </button>
-                </div>
-
+                <button
+                    onClick={() => router.push('/pages/watchlist')}
+                    className="bg-white text-black rounded-full text-xs px-4 py-2 uppercase hover:bg-opacity-90 transition duration-150 ease-in-out md:text-sm lg:px-5 lg:py-2.5">
+                    Watchlist
+                </button>
+                <button
+                    onClick={signOutUser}
+                    className="bg-white text-black rounded-full text-xs px-4 py-2 uppercase hover:bg-opacity-90 transition duration-150 ease-in-out md:text-sm lg:px-5 lg:py-2.5">
+                    Déconnexion
+                </button>
             </div>
-        </header >
+        </header>
     );
 }
 

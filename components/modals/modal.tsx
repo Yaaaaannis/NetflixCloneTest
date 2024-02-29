@@ -12,6 +12,9 @@ import { useModal } from '@/hooks/usemodal';
 import { Movie } from '@/hooks/usemovies';
 import { useSaveMovie } from '@/components/save-to-watchlist';
 import { useAuth } from '@/hooks/useauth';
+import { useToast } from "@/components/ui/use-toast"
+import { useUserMovies } from '@/hooks/useUserMovies';
+import RemoveFromWatchlistButton from '../remove-from-watchlist';
 
 
 
@@ -25,16 +28,22 @@ export const Modal = () => {
     const { isOpen, onClose, type, data } = useModal();
     const { user } = useAuth();
     const { saveMovieToUserList } = useSaveMovie();
+    const { toast } = useToast();
+    const { movies, refreshMovies } = useUserMovies();
+
 
     if (!isOpen || type !== "filmModal" || !data.movie) return null;
 
 
     const movie: Movie = data.movie;
 
+
     const handleSaveMovie = async () => {
         if (user) {
             await saveMovieToUserList(movie);
-            alert("Film ajouté à la watchlist !");
+            toast({
+                title: `${movie.title} ajouté a la Watchlist !`,
+            })
         } else {
             alert("Veuillez vous connecter pour ajouter des films à votre watchlist.");
         }
@@ -71,6 +80,7 @@ export const Modal = () => {
                     <button
                         onClick={handleSaveMovie}
                         className='px-8'>Add to Watchlist</button>
+                    <RemoveFromWatchlistButton movieId={movie.id.toString()} onRemove={refreshMovies} />
                     <button
                         onClick={() => onClose()}
                         className="flex px-4 py-2 bg-red-600  text-white rounded-2xl hover:bg-red-700 transition-colors  "

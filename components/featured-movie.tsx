@@ -35,14 +35,14 @@ const FeaturedMovieComponent = () => {
                     zIndex: 999,
                 }}>
 
-                    <div className='text-[70px] font-bold text-[#FFFFFF] pt-5 '>
+                    <div className='text-5xl font-bold text-white pt-5 mb-4 lg:text-6xl '>
                         {featuredMovie.title}</div>
                     <div className='text-[18px] font-bold'>
                         <div className='mr-[15px] inline-block text-green-400'>{featuredMovie.vote_average.toFixed(2)}</div>
                         <div className='mr-[15px] inline-block text-[#FFFFFF] '>{featuredMovie.release_date}</div>
                     </div>
                     <div>
-                        <div className='mt-[15px] text-[20px] text-[#999] max-w-[70%]' >{featuredMovie.overview}</div>
+                        <div className='text-xl text-gray-400 max-w-[70%] lg:max-w-[50%] sm:overflow-hidden sm:text-ellipsis sm:whitespace-nowrap'>{featuredMovie.overview}</div>
                         <div>
                             <p>{featuredMovie.genres}</p>
                         </div>
@@ -58,7 +58,7 @@ const FeaturedMovieComponent = () => {
                     </div>
                 </div>
             </div>
-        </ section>
+        </ section >
 
     );
 };

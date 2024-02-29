@@ -12,6 +12,7 @@ import { useModal } from '@/hooks/usemodal';
 import { Movie } from '@/hooks/usemovies';
 import { useSaveMovie } from '@/components/save-to-watchlist';
 import { useAuth } from '@/hooks/useauth';
+import { useToast } from "@/components/ui/use-toast"
 
 
 
@@ -28,6 +29,7 @@ const MovieModal: React.FC = () => {
     const { isOpen, type, data, onClose } = useModal();
     const { saveMovieToUserList } = useSaveMovie();
     const { user } = useAuth();
+    const { toast } = useToast();
 
     if (!isOpen || type !== "searchModal" || !data.movie) return null;
     const movie: Movie = data.movie;
@@ -38,7 +40,9 @@ const MovieModal: React.FC = () => {
     const handleSaveMovie = async () => {
         if (user) {
             await saveMovieToUserList(movie);
-            alert("Film ajouté à la watchlist !");
+            toast({
+                title: `${movie.title} ajouté a la Watchlist !`,
+            })
         } else {
             alert("Veuillez vous connecter pour ajouter des films à votre watchlist.");
         }
@@ -76,12 +80,14 @@ const MovieModal: React.FC = () => {
                     >
                         Ajouter à la watchlist
                     </button>
+
                     <button
                         onClick={onClose}
                         className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                     >
                         Fermer
                     </button>
+
                 </DialogFooter>
             </DialogContent>
         </Dialog>

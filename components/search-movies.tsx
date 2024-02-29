@@ -1,4 +1,6 @@
 // components/SearchMoviesComponent.tsx
+"use client"
+
 import React, { useState, useEffect, useRef } from 'react';
 import SearchBar from './searchbar';
 import { Movie } from '@/hooks/usemovies';
@@ -13,6 +15,8 @@ const SearchMoviesComponent = () => {
     const [showMovieList, setShowMovieList] = useState(true);
 
     const movieListRef = useRef<HTMLDivElement>(null);
+
+
 
     useEffect(() => {
         if (isOpen) {
@@ -31,7 +35,6 @@ const SearchMoviesComponent = () => {
     };
 
 
-
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (movieListRef.current && !movieListRef.current.contains(event.target as Node)) {
@@ -46,11 +49,14 @@ const SearchMoviesComponent = () => {
     }, []);
 
 
+
     return (
-        <div>
-            <SearchBar onSearch={handleSearch} />
+        <div className='relative'>
+            <div className="sticky top-0 z-10 flex flex-col">
+                <SearchBar onSearch={handleSearch} />
+            </div>
             {showMovieList && searchResults.length > 0 && (
-                <div ref={movieListRef}>
+                <div ref={movieListRef} className='mt-8 lg:w-full '>
                     <MovieList movies={searchResults} />
                 </div>
             )}

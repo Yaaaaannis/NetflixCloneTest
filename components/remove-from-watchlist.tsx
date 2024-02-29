@@ -2,7 +2,7 @@
 import React from 'react';
 import { useSaveMovie } from './save-to-watchlist';
 import { useUserMovies } from '@/hooks/useUserMovies';
-
+import { useToast } from "@/components/ui/use-toast"
 
 interface RemoveFromWatchlistButtonProps {
     movieId: string;
@@ -12,13 +12,15 @@ interface RemoveFromWatchlistButtonProps {
 const RemoveFromWatchlistButton: React.FC<RemoveFromWatchlistButtonProps> = ({ movieId, onRemove }) => {
     const { removeMovieFromUserList } = useSaveMovie();
     const { refreshMovies } = useUserMovies();
-
+    const { toast } = useToast();
 
     const handleRemoveFromWatchlist = async () => {
         try {
             await removeMovieFromUserList(movieId);
             onRemove(); // Utilisez le callback ici si nécessaire
-            alert("Film retiré de la watchlist avec succès !");
+            toast({
+                title: "Le film a été retiré de la Watchlist !",
+            })
         } catch (error) {
             console.error("Erreur lors de la suppression du film de la watchlist :", error);
             alert("Une erreur est survenue lors de la suppression du film de la watchlist.");
